@@ -3,6 +3,7 @@
         <div class="inventory-item__image">
             <img
                 :src="`public/images/InventoryItem/${type}.png`"
+                :draggable="false"
                 alt="item image"
                 width="54"
                 height="54"
@@ -15,7 +16,10 @@
 <script setup lang="ts">
 import type { Item } from '@/entities/ui/Inventory/store'
 
-export type InventoryItemProps = Item
+export type InventoryItemProps = {
+    type: Item['type']
+    count: Item['count']
+}
 
 defineProps<InventoryItemProps>()
 </script>

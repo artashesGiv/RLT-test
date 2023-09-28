@@ -2,25 +2,23 @@
     <div class="inventory wrapper">
         <div class="inventory__table">
             <div
-                v-for="(row, indexRow) in cells"
-                :key="indexRow"
-                class="inventory__row"
+                v-for="cell in store.cells"
+                class="inventory__cell"
+                @drop="onDrop($event, cell)"
+                @dragover.prevent
+                @dragenter.prevent
             >
-                <div
-                    v-for="(cell, indexCell) in cells"
-                    :key="indexCell"
-                    class="inventory__cell"
+                <inventory-item
+                    v-if="getItem(cell)"
+                    :key="getItem(cell).type"
+                    :count="getItem(cell).count"
+                    :type="getItem(cell).type"
+                    :draggable="true"
+                    class="inventory__item"
+                    @click="onClick(getItem(cell).type)"
+                    @dragstart.stop="onDragStart($event, getItem(cell))"
                 />
             </div>
-        </div>
-        <div class="inventory__items">
-            <inventory-item
-                v-for="item in store.items"
-                :key="item.type"
-                :count="item.count"
-                :type="item.type"
-                @click="onClick(item.type)"
-            />
         </div>
 
         <inventory-modal
@@ -33,11 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import InventoryItem from '@/entities/ui/InventoryItem.vue'
 import { type Item, useInventoryStore } from '@/entities/ui/Inventory/store'
+import InventoryItem from '@/entities/ui/InventoryItem.vue'
 import InventoryModal from '@/widgets/InventoryModal.vue'
-
-const cells = new Array(5).fill({})
 
 const store = useInventoryStore()
 
@@ -49,11 +45,30 @@ const onClick = (type: Item['type']) => {
     }
 }
 
+const getItem = (id: Item['cellId']): Item => {
+    return store.items.find(item => item.cellId === id) as Item
+}
+
 const onDelete = (value: Item['count']) => {
     if (store.activeItem) {
         store.deleteCount(store.activeItem.type, value)
     }
     store.resetActiveItem()
+}
+
+const onDragStart = (event: DragEvent, item: Item) => {
+    if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = 'move'
+        event.dataTransfer.effectAllowed = 'move'
+        event.dataTransfer.setData('itemType', item.type)
+    }
+}
+
+const onDrop = (event: DragEvent, id: Item['cellId']) => {
+    if (event.dataTransfer) {
+        const itemType = event.dataTransfer.getData('itemType') as Item['type']
+        store.updateCellId(itemType, id)
+    }
 }
 </script>
 
@@ -64,38 +79,21 @@ const onDelete = (value: Item['count']) => {
     overflow: hidden;
 
     &__table {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    &__row {
         display: flex;
-        box-sizing: border-box;
-        height: 100px;
-
-        & + & {
-            border-top: 1px solid var(--primary-border);
-        }
+        flex-wrap: wrap;
     }
 
     &__cell {
         width: 105px;
-        height: 100%;
+        height: 100px;
         box-sizing: border-box;
 
-        & + & {
-            border-left: 1px solid var(--primary-border);
+        &:not(&:nth-child(5n)) {
+            border-right: 1px solid var(--primary-border);
         }
-    }
-
-    &__items {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        align-content: flex-start;
+        &:nth-last-child(n + 6) {
+            border-bottom: 1px solid var(--primary-border);
+        }
     }
 }
 </style>
