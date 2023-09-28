@@ -1,0 +1,63 @@
+@import '../../../../node_modules/reset-css/reset.css';
+
+body {
+    font-size: 14px;
+    background-color: var(--background);
+    color: var(--primary-white);
+    font-family: $mainFontFamily;
+    min-width: 320px;
+    overflow: hidden;
+    height: 100vh;
+}
+
+#app {
+    height: 100%;
+}
+
+.button,
+button {
+    border: none;
+    cursor: pointer;
+    font-family: $mainFontFamily;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    backface-visibility: hidden;
+    text-align: center;
+}
+
+*:focus {
+    outline: none;
+}
+
+input,
+textarea {
+    appearance: none;
+    font-family: $mainFontFamily;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.container {
+    padding: 32px;
+    max-width: 850px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 660px;
+}
+
+.wrapper {
+    box-sizing: border-box;
+    background-color: var(--seconsary-bg);
+    border-radius: 12px;
+    border: 1px solid var(--primary-border);
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}

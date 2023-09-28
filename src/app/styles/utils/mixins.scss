@@ -1,0 +1,9 @@
+@mixin iconsModify() {
+    @each $name, $glyph in $icons {
+        &_#{$name} {
+            &::before {
+                content: $glyph;
+            }
+        }
+    }
+}

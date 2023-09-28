@@ -1,0 +1,17 @@
+@import 'mixins';
+@import 'icons';
+
+$icon: 'icon', sans-serif;
+$mainFontFamily: 'Inter', sans-serif;
+
+:root {
+    --primary-white: #ffffff;
+    --primary-black: #2d2d2d;
+    --primary-red: #fa7272;
+    --primary-border: #4d4d4d;
+
+    --background: #1d1d1d;
+    --seconsary-bg: #262626;
+
+    --skeleton: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
+}
