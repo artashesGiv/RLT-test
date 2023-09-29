@@ -2,7 +2,7 @@
     <div class="inventory-item">
         <div class="inventory-item__image">
             <img
-                :src="`../../../public/images/InventoryItem/${type}.png`"
+                :src="path"
                 :draggable="false"
                 alt="item image"
                 width="54"
@@ -15,13 +15,16 @@
 
 <script setup lang="ts">
 import type { Item } from '@/entities/ui/Inventory/store'
+import { computed } from 'vue'
 
 export type InventoryItemProps = {
     type: Item['type']
     count: Item['count']
 }
 
-defineProps<InventoryItemProps>()
+const props = defineProps<InventoryItemProps>()
+
+const path = computed(() => `/public/images/InventoryItem/${props.type}.png`)
 </script>
 
 <style scoped lang="scss">

@@ -10,7 +10,7 @@
             <div class="inventory-modal__image-wrapper">
                 <div class="inventory-modal__image">
                     <img
-                        src="/public/images/InventoryItem/green.png"
+                        :src="path"
                         alt="item image"
                         height="130"
                         width="130"
@@ -80,7 +80,7 @@ import IconBaseComponent from '@/entities/ui/IconBase.vue'
 import type { SkeletonProps } from '@/shared/ui/Skeleton.vue'
 import type { ModalProps } from '@/widgets/Modal.vue'
 import Modal from '@/widgets/Modal.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import InputComponent from '@/shared/ui/Input.vue'
 
 export type InventoryModalProps = {
@@ -88,7 +88,7 @@ export type InventoryModalProps = {
     isShow: ModalProps['isShow']
 }
 
-defineProps<InventoryModalProps>()
+const props = defineProps<InventoryModalProps>()
 const emit = defineEmits(['delete', 'close'])
 
 const isShowMoreActions = ref(false)
@@ -113,6 +113,8 @@ const skeletons: SkeletonProps[] = [
         width: '45%',
     },
 ]
+
+const path = computed(() => `/public/images/InventoryItem/${props.type}.png`)
 
 const validate = () => {
     return Boolean(deleteCount.value) && !isNaN(+deleteCount.value)
