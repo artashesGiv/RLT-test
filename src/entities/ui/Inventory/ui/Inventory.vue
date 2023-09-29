@@ -23,7 +23,7 @@
 
         <inventory-modal
             :is-show="!!store.activeItem"
-            :type="store.activeItem.type"
+            :type="store.activeItem?.type"
             @close="store.resetActiveItem"
             @delete="onDelete"
         />
