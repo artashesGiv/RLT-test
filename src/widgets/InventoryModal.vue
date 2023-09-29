@@ -88,7 +88,7 @@ import Yellow from 'public/images/InventoryItem/yellow.png'
 import Purple from 'public/images/InventoryItem/purple.png'
 
 export type InventoryModalProps = {
-    type: Item['type']
+    type: Maybe<Item['type']>
     isShow: ModalProps['isShow']
 }
 
@@ -124,7 +124,7 @@ const skeletons: SkeletonProps[] = [
     },
 ]
 
-const path = computed(() => imgData[props.type])
+const path = computed(() => imgData[props.type!])
 
 const validate = () => {
     return Boolean(deleteCount.value) && !isNaN(+deleteCount.value)
