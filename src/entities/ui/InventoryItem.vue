@@ -24,7 +24,13 @@ export type InventoryItemProps = {
 
 const props = defineProps<InventoryItemProps>()
 
-const path = computed(() => `/public/images/InventoryItem/${props.type}.png`)
+const path = computed(
+    () =>
+        new URL(
+            `/public/images/InventoryItem/${props.type}.png`,
+            import.meta.url,
+        ).href,
+)
 </script>
 
 <style scoped lang="scss">
