@@ -2,7 +2,7 @@
     <div class="inventory-item">
         <div class="inventory-item__image">
             <img
-                :src="`/public/images/InventoryItem/${type}.png`"
+                :src="`../../../public/images/InventoryItem/${type}.png`"
                 :draggable="false"
                 alt="item image"
                 width="54"

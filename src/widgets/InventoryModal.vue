@@ -10,7 +10,7 @@
             <div class="inventory-modal__image-wrapper">
                 <div class="inventory-modal__image">
                     <img
-                        :src="`/public/images/InventoryItem/${type}.png`"
+                        :src="`../../public/images/InventoryItem/${type}.png`"
                         alt="item image"
                         height="130"
                         width="130"
