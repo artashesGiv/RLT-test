@@ -83,13 +83,23 @@ import Modal from '@/widgets/Modal.vue'
 import { computed, ref } from 'vue'
 import InputComponent from '@/shared/ui/Input.vue'
 
+import Green from 'public/images/InventoryItem/green.png'
+import Yellow from 'public/images/InventoryItem/yellow.png'
+import Purple from 'public/images/InventoryItem/purple.png'
+
 export type InventoryModalProps = {
-    type: Maybe<Item['type']>
+    type: Item['type']
     isShow: ModalProps['isShow']
 }
 
 const props = defineProps<InventoryModalProps>()
 const emit = defineEmits(['delete', 'close'])
+
+const imgData: Record<Item['type'], string> = {
+    green: Green,
+    yellow: Yellow,
+    purple: Purple,
+}
 
 const isShowMoreActions = ref(false)
 const deleteCount = ref('')
@@ -114,7 +124,7 @@ const skeletons: SkeletonProps[] = [
     },
 ]
 
-const path = computed(() => `/public/images/InventoryItem/${props.type}.png`)
+const path = computed(() => imgData[props.type])
 
 const validate = () => {
     return Boolean(deleteCount.value) && !isNaN(+deleteCount.value)
